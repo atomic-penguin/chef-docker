@@ -189,6 +189,29 @@ Attribute | Description | Type | Default
 ----------|-------------|------|--------
 registry_cmd_timeout | registry LWRP default cmd_timeout seconds | Fixnum | 60
 
+#### docker_cleanup Attributes
+
+These attributes are under the `node['docker']['cron_cleanup']['containers']` namespace.
+
+Attribute | Description | Type | Default
+----------|-------------|------|--------
+minute | cron minute | cron parameter (String/Int) | 0 - effective Sunday, 1:00 AM
+hour | cron hour | cron parameter | 1 - effective Sunday, 1:00 AM
+day | cron day | cron parameter | * - effective Sunday, 1:00 AM
+month | cron month | cron parameter | * - effective Sunday, 1:00 AM
+weekday | cron day of week | 0 - effective Sunday, 1:00 AM
+
+These attributes are under the `node['docker']['cron_cleanup']['images']` namespace.
+
+Attribute | Description | Type | Default
+----------|-------------|------|--------
+tag | stale image tag to clean up | String | none - untagged images
+minute | cron minute | cron parameter (String/Int) | 0 - effective Sunday, 2:00 AM
+hour | cron hour | cron parameter | 2 - effective Sunday, 2:00 AM
+day | cron day | cron parameter | * - effective Sunday, 2:00 AM
+month | cron month | cron parameter | * - effective Sunday, 2:00 AM
+weekday | cron day of week | 0 - effective Sunday, 2:00 AM
+
 ## Recipes
 
 * `recipe[docker]` Installs/Configures Docker
@@ -204,6 +227,7 @@ registry_cmd_timeout | registry LWRP default cmd_timeout seconds | Fixnum | 60
 * `recipe[docker::systemd]` Installs/Starts Docker via systemd
 * `recipe[docker::sysv]` Installs/Starts Docker via SysV
 * `recipe[docker::upstart]` Installs/Starts Docker via Upstart
+* `recipe[docker::cleanup_cron]` Installs a cron job to clean up stale images/containers.
 
 ## LWRPs
 
